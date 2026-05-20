@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Instalar PlatformIO
-RUN pip3 install platformio
+RUN pip3 install --break-system-packages platformio
 
 # Directorio de trabajo
 WORKDIR /app
@@ -35,7 +35,7 @@ RUN apt-get update && apt-get install -y \
     python3-pip \
     && rm -rf /var/lib/apt/lists/*
 
-RUN pip3 install platformio
+RUN pip3 install --break-system-packages platformio
 
 WORKDIR /app
 
