@@ -1,5 +1,7 @@
-.pio
-.vscode
-.git
-.gitignore
-README.md
+src/
+lib/
+include/
+.pio/
+.vscode/
+*.cpp
+*.h
