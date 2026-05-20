@@ -49,7 +49,11 @@ red a la que se conecta la ESP32 para comunicarse con a API/Base de datos
 */
 #define WIFI_SSID               "HONOR X5c Plus"
 #define WIFI_PASSWORD           "123456789"
-#define MQTT_BROKER_IP          "192.168.131.3"
+
+// Broker MQTT en Railway (cloud). TCP proxy expuesto en el puerto 1883.
+// Para pruebas en red local, comentar la línea de abajo y descomentar la siguiente:
+// #define MQTT_BROKER_IP       "192.168.131.3"
+#define MQTT_BROKER_IP          "germinacion-mqtt-production.up.railway.app"
 #define MQTT_BROKER_PORT         1883
 #define MQTT_TOPIC_TELEMETRY    "germinador/telemetria"
 #define MQTT_TOPIC_CMD          "germinador/comandos"
