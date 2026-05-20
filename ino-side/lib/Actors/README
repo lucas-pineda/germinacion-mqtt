@@ -1,0 +1,21 @@
+Módulo de Actuadores (`Actors`)
+
+Este módulo se encarga del control eléctrico seguro y asíncrono de los componentes de potencia del germinador mediante relés en lógica invertida (Active-LOW). Utiliza la función nativa `millis()` para gestionar los tiempos, evitando el uso de funciones de bloqueo (`delay()`) y permitiendo que la ESP32 realice multitarea en tiempo real.
+
+Bomba de Agua (`WaterActor`)
+
+* Función Principal: Activa y desactiva el paso de agua hacia el sustrato a través del GPIO 5.
+* Protección por Software: Almacena una estampa de tiempo (`_lastActivationMs`) que el motor principal utiliza para calcular tiempos de cooldown (descanso), evitando sobre-riego y protegiendo la bomba de arranques repetitivos dañinos.
+* Telemetría Avanzada (Odómetro de Agua): Cuenta con un acumulador de tiempo de ejecución global (`_totalOnTimeMs`). Al medir los milisegundos exactos que la bomba pasa encendida, se puede estimar mediante software el caudal y consumo de agua real del proyecto sin necesidad de añadir un sensor de flujo físico (optimización de costos de hardware).
+
+Lámpara / Foco Térmico (`HeatActor`)
+
+* Función Principal: Avisar para el encendido del foco.
+* Temporizador Asíncrono de Fotoperiodo (`updateCycle`):** Implementa un reloj interno de ciclo diario (por defecto configurado en un esquema de fotoperiodo balanceado de 12 horas encendido y 12 horas apagado).
+
+Comandos de Anulación Manual (Modo Debug - Los q afectan directamente a los Actores) 
+
+Ambos actuadores exponen métodos de fuerza (`debugForceActivate()` / `debugForceDeactivate()`) que se enlazan con la consola serial. Al recibir los comandos `PUMP ON/OFF` o `LAMP ON/OFF`:
+
+1. Se suspenden los límites térmicos y las reglas de humedad del perfil.
+2. Se altera el pin digital de manera inmediata para pruebas de laboratorio del hardware.
